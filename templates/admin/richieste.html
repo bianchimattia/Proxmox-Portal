@@ -1,0 +1,44 @@
+<!-- admin/richieste.html -->
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="table-title">Lista delle richieste</h1>
+    <div class="table-container">
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>Utente</th>
+            <th>Tipo VM</th>
+            <th>Status</th>
+            <th>Data Richiesta</th>
+            <th>Azioni</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.user.username }}</td>
+                <td>{{ request.vm_type.name }}</td>
+                <td>{{ request.status }}</td>
+                <td>{{ request.request_ts }}</td>
+                <td>
+                    {% if request.status == "PENDING" %}
+                    <form method="POST" action="{{ url_for('admin.accetta', req_id=request.id) }}" style="display:inline;">
+                        <button id="accetta" class="btn btn-success btn-sm" type="submit">Accetta</button>
+                    </form>
+
+                    <form method="POST" action="{{ url_for('admin.rifiuta', req_id=request.id) }}" style="display:inline;">
+                        <button id="rifiuta" type="submit" class="btn btn-danger btn-sm">Rifiuta</button>
+                    </form>
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}
+
+

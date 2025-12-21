@@ -1,0 +1,33 @@
+<!-- base.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+    <title>Proxmox Portal</title>
+</head>
+<body>
+    {% if current_user.is_authenticated and current_user.has_role('admin') %}
+        {% include "admin/header.html" %}
+    {% elif current_user.is_authenticated and current_user.has_role('user') %}
+        {% include "user/header.html" %}
+    {% else %}
+        {% include "header_base.html" %}
+    {% endif %}
+
+    <div class="container">
+        {% block content %}{% endblock %}     
+    </div>
+
+    {% if current_user.is_authenticated and current_user.has_role('admin') %}
+        {% include "admin/footer.html" %}
+    {% elif current_user.is_authenticated and current_user.has_role('user') %}
+        {% include "user/footer.html" %}
+    {% endif %}
+
+</body>
+</html>

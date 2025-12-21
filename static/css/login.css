@@ -1,0 +1,123 @@
+/* login.css */
+/*https://codepen.io/stack-findover/pen/OJRvPQv*/
+* {
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f7fafc;
+}
+
+.login-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -300px;
+}
+
+.formbg {
+  background: white;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.formbg-inner {
+  padding: 40px;
+}
+
+.title {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 15px;
+  border-radius: 4px;
+  border: 1px solid #d0d5dd;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #5469d4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.field-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.vm-form .field {
+  margin-bottom: 18px;
+}
+
+.select {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 15px;
+  border-radius: 4px;
+  border: 1px solid #d0d5dd;
+  background: white;
+  color: #1a1f36;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+
+.btn-submit {
+  width: 100%;
+  padding: 12px 14px;
+  background: #5469d4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.06s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-submit:hover {
+  background: #4353c3;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.btn-submit:active {
+  transform: translateY(1px);
+}
+
+.btn-submit:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(84, 105, 212, 0.18);
+}

@@ -1,0 +1,24 @@
+<!-- user/creazione.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="login-root">
+  <div class="formbg">
+    <div class="formbg-inner">
+      <span class="title">Richiedi una nuova VM:</span>
+
+      <form class="vm-form" method="POST" action="{{ url_for('user.crea_vm') }}">
+        <div class="field">
+          <label for="vm_type_id">Tipo di VM:</label>
+          <select class="select" id="vm_type_id" name="vm_type_id" required>
+            <option value="0">Bronze</option>
+            <option value="1">Silver</option>
+            <option value="2">Gold</option>
+          </select>
+        </div>
+
+        <button class="btn-submit" type="submit">Richiedi VM</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

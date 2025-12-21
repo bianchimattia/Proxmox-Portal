@@ -9,15 +9,8 @@ venv/
 ENV/
 env/
 
-# --- Flask / Instance folder ---
 instance/
-*.sqlite3
 *.db
-
-# --- Env vars / secrets ---
-.env
-.env.*
-!.env.example
 
 # --- Migrations cache ---
 migrations/__pycache__/

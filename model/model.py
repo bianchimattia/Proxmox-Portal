@@ -10,11 +10,10 @@ user_roles = db.Table('user_roles',
 
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True)
+    name = db.Column(db.String(50), unique=False)
 
     def __repr__(self):
         return f'<Role {self.name}>'
-
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -54,8 +53,53 @@ class User(db.Model, UserMixin):
         alt['added'] = self.add_ts.isoformat()
         
         return alt
-        
+
+class VmType(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    
+    name = db.Column(db.String(50), unique=True, nullable=False)
+    cores = db.Column(db.Integer, nullable=False)
+    ram = db.Column(db.Integer, nullable=False)  # in MB
+    disk = db.Column(db.Integer, nullable=False)  # in GB
+    template_vmid = db.Column(db.Integer, nullable=False)  # ID del template VM in Proxmox
+
+    
+    def __repr__(self):
+        return f'<VmType {self.name} cores={self.cores} ram={self.ram} disk={self.disk}>'
+
+class VmRequest(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    vm_type_id = db.Column(db.Integer, db.ForeignKey('vm_type.id'), nullable=False)
+    status = db.Column(db.String(50), nullable=False, default='PENDING')
+    request_ts = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
+
+    user = db.relationship('User', backref=db.backref('vm_requests', lazy='dynamic'))
+    vm_type = db.relationship('VmType', backref=db.backref('vm_requests', lazy='dynamic'))
+
+    def __repr__(self):
+        return f'<VmRequest id={self.id} user_id={self.user_id} vm_type_id={self.vm_type_id} status={self.status}>'
+
+class VmCredentials(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    vm_request_id = db.Column(db.Integer, db.ForeignKey('vm_request.id'), nullable=False)
+    hostname = db.Column(db.String(100), nullable=False)
+    ip_address = db.Column(db.String(45), nullable=False)
+    username = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(128), nullable=False) 
+    add_ts = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
+
+    vm_request = db.relationship('VmRequest', backref=db.backref('credentials', uselist=False))
+
+    def __repr__(self):
+        return f'<VmCredentials id={self.id} vm_request_id={self.vm_request_id} ip_address={self.ip_address}>'
+
 def init_db():  #nuovo stile
+
     # Verifica se i ruoli esistono già
     if not db.session.execute(db.select(Role).filter_by(name='admin')).scalars().first():
         admin_role = Role(name='admin')

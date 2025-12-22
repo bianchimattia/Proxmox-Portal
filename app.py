@@ -11,7 +11,6 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///proxmox-portal.db'
 app.config['SECRET_KEY'] = '12345'
-app.config.from_object('config')
 
 from blueprints.auth import login_manager, app as auth_blueprint
 from blueprints.admin import app as admin_blueprint

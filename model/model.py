@@ -101,6 +101,8 @@ class VmCredentials(db.Model):
 
 def init_db():  
 
+    db.create_all()
+
     # Verifica se i ruoli esistono già
     if not db.session.execute(db.select(Role).filter_by(name='admin')).scalars().first():
         admin_role = Role(name='admin')

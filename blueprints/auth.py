@@ -49,7 +49,12 @@ def login_post():
     if user.has_role("admin"):
         return redirect(url_for('admin.get_richieste'))
     elif user.has_role("user"):
-        return redirect(url_for('user.get_lista_vm'))  
+        return redirect(url_for('user.get_lista_vm'))
+    else:
+        flash("Account senza ruolo: contatta un admin.")
+        logout_user()
+        return redirect(url_for('auth.login'))
+ 
 
 # route per eseguire il logout dell'utente autenticato
 @app.route('/logout')
@@ -67,36 +72,28 @@ def signup():
 # route una volta eseguita la registrazione, gestisce i dati ottenuti e crea l'utente
 @app.route('/signup', methods=['POST'])
 def signup_post():
-
-    username = request.form["username"] 
-    email = request.form["email"]    
+    username = request.form["username"]
+    email = request.form["email"]
     password = request.form["password"]
 
-    if not username:
-        flash('Invalid username')
-        return redirect(url_for('auth.signup'))
-    if not email:
-        flash('Invalid email')
-        return redirect(url_for('auth.signup'))
-    if not password:
-        flash('Invalid password')
-        return redirect(url_for('auth.signup'))                
-    
-    user = User.query.filter_by(email=email).first() 
-    if user: 
+    # ... tuoi controlli ...
+
+    user = User.query.filter_by(email=email).first()
+    if user:
         flash('User with this email address already exists')
         return redirect(url_for('auth.signup'))
 
     user = User(username=username, email=email)
-    user.set_password(password)  
-    db.session.add(user) 
+    user.set_password(password)
+
+    # ✅ assegna ruolo user
+    user_role = Role.query.filter_by(name='user').first()
+    if user_role:
+        user.roles.append(user_role)
+
+    db.session.add(user)
     db.session.commit()
 
-    # role = Role(id=user.id, name='user')
-    # db.session.add(role)
-    # db.session.commit()
-
-    login_user(user)
     return redirect(url_for('auth.login'))
 
 

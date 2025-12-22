@@ -33,10 +33,10 @@ def crea_vm():
 
     vm_type_id = int(request.form.get('vm_type_id'))
     if vm_type_id is None:
-        flash("Seleziona un tipo di VM e riprova")
         return redirect(url_for('user.get_creazione_form'))
 
     new_request = VmRequest(vm_type_id=vm_type_id, user_id=current_user.id, status='PENDING')
     db.session.add(new_request)
     db.session.commit()
+    flash("Richiesta di creazione VM inviata")
     return redirect(url_for('user.get_creazione_form'))

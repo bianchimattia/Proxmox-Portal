@@ -2,6 +2,9 @@
 import os,time
 from proxmoxer import ProxmoxAPI
 from flask import current_app
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # funzione che estrae dal .env le variabili per connettersi a Proxmox
 def proxmox_client():

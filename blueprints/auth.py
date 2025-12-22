@@ -10,6 +10,7 @@ login_manager.login_view = 'auth.login'
 
 app = Blueprint('auth', __name__)
 
+# decoratore fornito dal docente tramite moodle, gestisce i permessi di accesso alle pagine in bas al ruolo
 def user_has_role(*role_names):
     def decorator(f):
         @wraps(f)
@@ -24,10 +25,12 @@ def user_has_role(*role_names):
         return decorated_function
     return decorator
 
+# route per il login, ritorna la pagina di login
 @app.route('/login')
 def login():
     return render_template('auth/login.html')
 
+# route una volta eseguito il login, gestisce i dati ottenuti e autentica l'utente
 @app.route('/login', methods=['POST'])
 def login_post():
     # manages the login form post request
@@ -48,6 +51,7 @@ def login_post():
     elif user.has_role("user"):
         return redirect(url_for('user.get_lista_vm'))  
 
+# route per eseguire il logout dell'utente autenticato
 @app.route('/logout')
 @login_required
 @user_has_role("admin", "user")
@@ -55,16 +59,12 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
-@app.route('/profile')
-@login_required
-@user_has_role("admin", "user")
-def profile():
-     return render_template('auth/profile.html', name=current_user.username)
-
+# route per la registrazione, ritorna la pagina di registrazione
 @app.route('/signup')
 def signup():
     return render_template('auth/signup.html')
 
+# route una volta eseguita la registrazione, gestisce i dati ottenuti e crea l'utente
 @app.route('/signup', methods=['POST'])
 def signup_post():
 
@@ -98,6 +98,7 @@ def signup_post():
 
     login_user(user)
     return redirect(url_for('auth.login'))
+
 
 @login_manager.user_loader
 def load_user(user_id):

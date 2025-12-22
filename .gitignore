@@ -1,17 +1,15 @@
-# --- Python cache ---
 __pycache__/
 *.py[cod]
+*.pyo
 *.pyd
-
-# --- Virtual environments ---
+.env
+.env.*
+!.env.example
+.flaskenv
+instance/
+*.db
 .venv/
 venv/
 ENV/
 env/
-
-instance/
-*.db
-
-# --- Migrations cache ---
 migrations/__pycache__/
-

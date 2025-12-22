@@ -1,9 +1,18 @@
 <!--user/header.html-->
 <div class="header">
-    <a href="{{ url_for('user.get_lista_vm') }}" class="logo">ProxMox Portal</a>
-    <div class="header-right">
-      <a class="active" href="{{ url_for('user.get_lista_vm') }}">Lista VM</a>
-      <a href="{{ url_for('user.get_creazione_form') }}">Richiedi VM</a>
-      <a href="{{ url_for('auth.logout') }}">Logout</a>
-    </div>
+  <a href="{{ url_for('user.get_lista_vm') }}" class="logo">ProxMox Portal</a>
+  <div class="header-right">
+
+    <a href="{{ url_for('user.get_lista_vm') }}"
+       class="{{ 'active' if request.endpoint == 'user.get_lista_vm' else '' }}">
+      Lista VM
+    </a>
+
+    <a href="{{ url_for('user.get_creazione_form') }}"
+       class="{{ 'active' if request.endpoint == 'user.get_creazione_form' else '' }}">
+      Richiedi VM
+    </a>
+
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+  </div>
 </div>

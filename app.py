@@ -1,8 +1,10 @@
 # app.py
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_migrate import Migrate
 from model.connection import db
 from model.model import init_db
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -24,8 +26,13 @@ login_manager.init_app(app)
 
 
 migrate = Migrate(app, db)
-#with app.app_context():
-    #init_db()
+with app.app_context():
+    init_db()
+
+@app.route("/")
+def home():
+    return redirect(url_for('auth.login'))
+
 
     
 if __name__ == '__main__':

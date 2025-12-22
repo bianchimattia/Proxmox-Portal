@@ -1,3 +1,4 @@
+import os
 from model.connection import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -98,7 +99,7 @@ class VmCredentials(db.Model):
     def __repr__(self):
         return f'<VmCredentials id={self.id} vm_request_id={self.vm_request_id} ip_address={self.ip_address}>'
 
-def init_db():  #nuovo stile
+def init_db():  
 
     # Verifica se i ruoli esistono già
     if not db.session.execute(db.select(Role).filter_by(name='admin')).scalars().first():
@@ -113,12 +114,22 @@ def init_db():  #nuovo stile
 
     # Verifica se l'utente admin esiste già
     if not db.session.execute(db.select(User).filter_by(username='admin')).scalars().first():
-        admin_user = User(username="admin", email="admin@example.com")
-        admin_user.set_password("adminpassword")
-        
+        admin_user = User(username=os.getenv("PORTAL_ADMIN_USERNAME"), email="admin@example.com")
+        admin_user.set_password(os.getenv("PORTAL_ADMIN_PASSWORD", "Admin$00"))
+
         # Aggiunge il ruolo 'admin' all'utente
         admin_role = db.session.execute(db.select(Role).filter_by(name='admin')).scalars().first()
         admin_user.roles.append(admin_role)
 
         db.session.add(admin_user)
+        db.session.commit()
+
+
+    # Aggiungi tipi di VM di esempio se non esistono
+    if not db.session.execute(db.select(VmType)).scalars().first():
+        bronze = VmType(name='bronze', cores=1, ram=512, disk=10, template_vmid=int(os.getenv("PROXMOX_TEMPLATE_ID", "1102")))
+        silver = VmType(name='silver', cores=2, ram=1024, disk=15, template_vmid=int(os.getenv("PROXMOX_TEMPLATE_ID", "1102")))
+        gold = VmType(name='gold', cores=4, ram=2048, disk=20, template_vmid=int(os.getenv("PROXMOX_TEMPLATE_ID", "1102")))
+
+        db.session.add_all([bronze, silver, gold])
         db.session.commit()

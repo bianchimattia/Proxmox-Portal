@@ -1,5 +1,4 @@
 /* table.css */
-/* container */
 .table-container {
   max-width: 1000px;
   margin: 40px auto;
@@ -75,7 +74,6 @@
   background: #4353c3;
 }
 
-/* info card (stesso stile della tabella) */
 .info-card {
   max-width: 1000px;
   margin: 18px auto 40px auto;
@@ -122,7 +120,6 @@
   color: #4b5563;
 }
 
-/* code box */
 .code-box {
   background: #0b1020;
   border-radius: 6px;
@@ -138,7 +135,6 @@
   white-space: nowrap;
 }
 
-/* tips grid */
 .info-card__tips {
   display: grid;
   grid-template-columns: 1fr;

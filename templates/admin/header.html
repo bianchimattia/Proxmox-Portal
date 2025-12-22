@@ -1,10 +1,20 @@
 <!--admin/header.html-->
 <div class="header">
-    <a href="#" class="logo">ProxMox Portal</a>
-    <div class="header-right">
-      <a class="active" href="{{ url_for('admin.get_richieste') }}">Richieste</a>
-      <a href="{{ url_for('admin.get_utenti') }}">Utenti</a>
-      <a href="{{ url_for('auth.logout') }}">Logout</a>
-    </div>
+  <a href="{{ url_for('admin.get_richieste') }}" class="logo">ProxMox Portal</a>
+
+  <div class="header-right">
+    <a href="{{ url_for('admin.get_richieste') }}"
+       class="{{ 'active' if request.endpoint == 'admin.get_richieste' else '' }}">
+      Richieste
+    </a>
+
+    <a href="{{ url_for('admin.get_utenti') }}"
+       class="{{ 'active' if request.endpoint == 'admin.get_utenti' else '' }}">
+      Utenti
+    </a>
+
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+  </div>
 </div>
+
 

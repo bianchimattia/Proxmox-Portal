@@ -71,9 +71,9 @@ Proxmox-Portal/
    - **PROXMOX_TOKEN_VALUE e PROXMOX_TOKEN_NAME sono presenti sotto al Datacenter in Proxmox**
 - **Creare ambiene virtuale dalla root del progetto e installazione delle dipendenze**
 ```bash
-1. python -m venv venv
-2. ./.venv/bin/pip install --upgrade pip (linux) - pip install --upgrade pip (windows)
-3. ./.venv/bin/pip install -r requirements.txt (linux) - pip install -r requirements.txt (windows)
+python -m venv venv
+./.venv/bin/pip install --upgrade pip (linux) - pip install --upgrade pip (windows)
+./.venv/bin/pip install -r requirements.txt (linux) - pip install -r requirements.txt (windows)
 ```
 - **Avviare il server**
 ```bash

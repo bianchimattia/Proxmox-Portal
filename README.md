@@ -38,7 +38,7 @@ Proxmox-Portal/
 │   ├── admin/           # Template amministrator
 │   └── user/            # Template utente
 │
-├── static/              # File statici (CSS, JS)
+├── static/              # File statici CSS
 │   └── css/
 │       ├── header.css
 │       ├── login.css

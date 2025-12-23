@@ -149,6 +149,10 @@ Vedi `utils/proxmox.py` e `utils/ssh.py` per i dettagli
 ### Errore di connessione a Proxmox
 Verifica le credenziali nel file `.env` e che il server Proxmox sia raggiungibile.
 
+
+### Errore Bad Gateway Nginx alla creazione della macchina
+Basta un reload della pagina, la macchina sarà stata creata e le credenziali fornite
+
 ---
 
 **Ultima modifica**: 23 Dicembre 2025  

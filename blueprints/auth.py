@@ -76,7 +76,6 @@ def signup_post():
     email = request.form["email"]
     password = request.form["password"]
 
-    # ... tuoi controlli ...
 
     user = User.query.filter_by(email=email).first()
     if user:
@@ -86,7 +85,6 @@ def signup_post():
     user = User(username=username, email=email)
     user.set_password(password)
 
-    # ✅ assegna ruolo user
     user_role = Role.query.filter_by(name='user').first()
     if user_role:
         user.roles.append(user_role)

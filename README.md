@@ -64,7 +64,23 @@ Proxmox-Portal/
 - **Accesso al nodo di Proxmox** (per le funzionalità di integrazione)
 - **Connessione SSH** verso il server Proxmox
 
-## Raggiungimento del Portale
+## Implementazione da clone GitHub
+
+- **Clonare il repository nella cartella che si vuole**
+- **Creare il file .env nella root del progetto prendendo spunta da .env.example**
+   - **PROXMOX_TOKEN_VALUE e PROXMOX_TOKEN_NAME sono presenti sotto al Datacenter in Proxmox**
+- **Creare ambiene virtuale dalla root del progetto e installazione delle dipendenze**
+```bash
+1. python -m venv venv
+2. ./.venv/bin/pip install --upgrade pip (linux) - pip install --upgrade pip (windows)
+3. ./.venv/bin/pip install -r requirements.txt (linux) - pip install -r requirements.txt (windows)
+```
+- **Avviare il server**
+```bash
+python app.py
+```
+
+## Raggiungimento del Portale da Proxmox
 
 ### 1. Avvio del cluster Proxmox e dei nodi 
 
@@ -77,18 +93,18 @@ Proxmox-Portal/
 ### 2. Accesso al portale tramite IP
 
 ```bash
-1. Avviare il container "porta-hosting" presente sotto al px1
-2. Verificare l'IP di rete
+1. Avviare il container "portal-hosting" presente sotto al px1
+2. Verificare l'IP di rete della scheda di rete eth1
 3. Tramite browser, raggiungere l'IP della macchina
 ```
 
 ## Accesso all'Applicazione
 
-1. Naviga su **http://[ip_portal-hosting]**
+1. Naviga su **http://[ip del portal-hosting]**
 2. Verrai reindirizzato automaticamente alla pagina di login
 3. Accedi con le credenziali:
-   - **Email**: admin@example.com
-   - **Password**: password123 (o quella che hai impostato)
+   - **Email**: admin@samtrevano.com (account admin default)
+   - **Password**: Password&1 (uguale per l'utente di default mattia.bianchi@samtrevano.ch)
 
 ### Ruoli disponibili:
 
@@ -135,6 +151,6 @@ Verifica le credenziali nel file `.env` e che il server Proxmox sia raggiungibil
 
 ---
 
-**Ultima modifica**: 22 Dicembre 2025  
+**Ultima modifica**: 23 Dicembre 2025  
 **Versione**: 1.0.0
 **Autore**: Mattia Bianchi I4AA
